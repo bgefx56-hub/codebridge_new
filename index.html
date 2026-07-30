@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeBridge — Biomaths to Code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF2EA;
+    --ink:#173B33;
+    --ink-soft:#3E6358;
+    --panel:#132821;
+    --panel-text:#E7F2EA;
+    --amber:#D98E04;
+    --teal:#3E8E7E;
+    --line:#C9D6CB;
+    --white:#FBFBF7;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--amber);color:var(--white);}
+
+  a{color:inherit;}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 28px;max-width:1040px;margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;letter-spacing:-0.01em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .bracket{color:var(--amber);font-family:'IBM Plex Mono',monospace;}
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;
+    border:1px solid var(--ink);padding:9px 16px;border-radius:100px;
+    text-decoration:none;transition:all .2s ease;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:60px 0 40px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--teal);
+    letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--teal);}
+  h1{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;letter-spacing:-0.02em;
+    margin:0 0 22px;max-width:11ch;
+  }
+  h1 em{font-style:italic;color:var(--teal);font-weight:500;}
+  .lede{font-size:1.12rem;color:var(--ink-soft);max-width:46ch;line-height:1.55;margin-bottom:34px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .btn-primary{
+    font-family:'IBM Plex Mono',monospace;font-size:0.88rem;font-weight:500;
+    background:var(--ink);color:var(--paper);border:none;padding:15px 26px;border-radius:8px;
+    cursor:pointer;text-decoration:none;display:inline-block;transition:transform .15s ease, background .2s ease;
+  }
+  .btn-primary:hover{background:var(--panel);transform:translateY(-1px);}
+
+  /* ---------- BRIDGE SIGNATURE ---------- */
+  .bridge{
+    margin:52px 0 20px;padding:30px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:18px;overflow:hidden;
+  }
+  .bridge-strand{
+    font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--ink-soft);
+    white-space:nowrap;letter-spacing:2px;flex-shrink:0;
+  }
+  .bridge-strand b{color:var(--teal);font-weight:600;}
+  .bridge-line{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--amber) 0 8px, transparent 8px 14px);}
+  .bridge-code{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;color:var(--amber);flex-shrink:0;}
+
+  /* ---------- WHAT YOU LEARN ---------- */
+  section.learn{padding:50px 0;}
+  .section-title{
+    font-family:'Fraunces',serif;font-size:1.8rem;font-weight:600;margin-bottom:8px;
+  }
+  .section-sub{color:var(--ink-soft);margin-bottom:34px;max-width:50ch;}
+  .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:760px){.learn-grid{grid-template-columns:1fr;}}
+  .learn-card{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px 22px;
+  }
+  .learn-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--amber);
+    text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;display:block;
+  }
+  .learn-card h3{font-family:'Fraunces',serif;font-size:1.15rem;margin:0 0 8px;font-weight:600;}
+  .learn-card p{font-size:0.92rem;color:var(--ink-soft);line-height:1.5;margin:0;}
+
+  /* ---------- FORM ---------- */
+  section.register{padding:60px 0 80px;}
+  .register-panel{
+    background:var(--panel);color:var(--panel-text);border-radius:20px;
+    padding:44px;display:grid;grid-template-columns:1fr 1.3fr;gap:40px;
+  }
+  @media(max-width:800px){.register-panel{grid-template-columns:1fr;padding:30px 24px;}}
+  .register-info .section-title{color:var(--panel-text);}
+  .register-info p{color:#B9CBC1;line-height:1.6;font-size:0.95rem;}
+  .register-info .mono-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--teal);
+    letter-spacing:0.05em;text-transform:uppercase;
+  }
+  form{display:flex;flex-direction:column;gap:16px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  label{font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:#9FB6AB;text-transform:uppercase;letter-spacing:0.04em;}
+  input,select{
+    background:#0D1B16;border:1px solid #2B4238;color:var(--panel-text);
+    padding:13px 14px;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.95rem;
+    outline:none;transition:border .15s ease;
+  }
+  input:focus,select:focus{border-color:var(--amber);}
+  select{appearance:none;background-image:linear-gradient(45deg, transparent 50%, #9FB6AB 50%), linear-gradient(135deg, #9FB6AB 50%, transparent 50%);background-position:calc(100% - 20px) center, calc(100% - 15px) center;background-size:5px 5px, 5px 5px;background-repeat:no-repeat;}
+  .submit-btn{
+    margin-top:6px;background:var(--amber);color:#1B1204;border:none;padding:15px;border-radius:8px;
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:0.92rem;cursor:pointer;
+    transition:background .2s ease;
+  }
+  .submit-btn:hover{background:#F0A72C;}
+  .submit-btn:disabled{opacity:0.6;cursor:not-allowed;}
+  .form-msg{font-family:'IBM Plex Mono',monospace;font-size:0.82rem;min-height:18px;}
+  .form-msg.err{color:#E8877C;}
+  .form-msg.ok{color:#7FD6B4;}
+
+  /* ---------- CONFIRMATION ---------- */
+  .confirm{
+    display:none;text-align:center;padding:30px 10px;
+  }
+  .confirm.show{display:block;}
+  .confirm .check{
+    width:56px;height:56px;border-radius:50%;background:var(--teal);color:var(--panel);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:1.6rem;
+  }
+  .confirm h3{font-family:'Fraunces',serif;font-size:1.5rem;margin:0 0 10px;}
+  .confirm p{color:#B9CBC1;font-size:0.92rem;line-height:1.6;}
+
+  /* ---------- ADMIN ---------- */
+  section.admin{padding:0 0 80px;}
+  .admin-toggle{
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--ink-soft);
+    background:none;border:1px dashed var(--line);padding:10px 16px;border-radius:8px;cursor:pointer;
+  }
+  .admin-panel{display:none;margin-top:22px;}
+  .admin-panel.show{display:block;}
+  .admin-gate{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+  .admin-gate input{
+    background:var(--white);border:1px solid var(--line);padding:11px 14px;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;flex:1;min-width:180px;
+  }
+  .admin-gate button{
+    font-family:'IBM Plex Mono',monospace;font-size:0.82rem;background:var(--ink);color:var(--paper);
+    border:none;padding:11px 20px;border-radius:8px;cursor:pointer;
+  }
+  table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;font-size:0.85rem;}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);}
+  th{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-soft);background:#E4EAE0;}
+  td{color:var(--ink);}
+  .table-wrap{overflow-x:auto;border-radius:12px;}
+  .empty-note{color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:0.85rem;}
+
+  footer{padding:36px 0 50px;border-top:1px solid var(--line);}
+  footer p{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--ink-soft);text-align:center;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="bracket">&lt;</span>CodeBridge<span class="bracket">/&gt;</span></div>
+  <a href="#register" class="nav-cta">Register</a>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">10-Day Program &middot; Biomaths &rarr; Programming</div>
+    <h1>Where biology<br><em>learns</em> to code.</h1>
+    <p class="lede">CodeBridge takes biomaths graduate students from zero programming experience to writing their own Python scripts — in ten focused, one-hour sessions.</p>
+    <div class="hero-actions">
+      <a href="#register" class="btn-primary">Register for the program</a>
+    </div>
+  </header>
+
+  <div class="bridge">
+    <div class="bridge-strand">ATG<b>C</b>GTA<b>A</b>CGT</div>
+    <div class="bridge-line"></div>
+    <div class="bridge-code">&#123; print("hello") &#125;</div>
+  </div>
+
+  <section class="learn" id="learn">
+    <h2 class="section-title">What the program covers</h2>
+    <p class="section-sub">Ten one-hour sessions, built around examples students already understand — sequences, datasets, and biological logic.</p>
+    <div class="learn-grid">
+      <div class="learn-card">
+        <span class="learn-tag">Days 1&ndash;4</span>
+        <h3>Programming Foundations</h3>
+        <p>What a programming language actually is, how Python runs, and the basics: variables, types, and operators.</p>
+      </div>
+      <div class="learn-card">
+        <span class="learn-tag">Days 5&ndash;8</span>
+        <h3>Python in Practice</h3>
+        <p>Conditionals, loops, lists, dictionaries, and functions — applied to simple DNA and dataset examples.</p>
+      </div>
+      <div class="learn-card">
+        <span class="learn-tag">Days 9&ndash;10</span>
+        <h3>Data &amp; Mini Project</h3>
+        <p>A first look at Pandas, then a small end-to-end project analyzing a real dataset.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="register" id="register">
+    <div class="register-panel">
+      <div class="register-info">
+        <span class="mono-tag">// registration</span>
+        <h2 class="section-title" style="margin-top:10px;">Reserve your seat</h2>
+        <p>Fill in your details below. Your information is stored securely for the CodeBridge program roster — only the program organizers can view it.</p>
+      </div>
+
+      <div>
+        <form id="regForm">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input type="text" id="name" placeholder="e.g. Black">
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile number</label>
+            <input type="tel" id="mobile" placeholder="e.g. 98765 43210">
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" placeholder="e.g. black@email.com">
+          </div>
+          <div class="field">
+            <label for="qualification">Qualification</label>
+            <input type="text" id="qualification" placeholder="e.g. M.Sc Biomathematics">
+          </div>
+          <div class="field">
+            <label for="domain">Domain in 12th</label>
+            <select id="domain">
+              <option value="" disabled selected>Select your 12th domain</option>
+              <option>Biology (Bio-Maths)</option>
+              <option>Biology (Bio-Botany/Zoology)</option>
+              <option>Pure Mathematics</option>
+              <option>Computer Science</option>
+              <option>Commerce</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <button type="button" class="submit-btn" id="submitBtn">Submit registration</button>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+
+        <div class="confirm" id="confirmBox">
+          <div class="check">&#10003;</div>
+          <h3>You're registered!</h3>
+          <p>Thanks for signing up for CodeBridge. The organizers will reach out with your WhatsApp group invite, schedule, and joining instructions shortly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="admin" id="admin">
+    <p class="empty-note">All registrations are saved directly to your CodeBridge Google Sheet — open it anytime to view responses.</p>
+  </section>
+</div>
+
+<footer>
+  <p>CodeBridge — Bridging Biomaths and Code</p>
+</footer>
+
+<script>
+  const STORAGE_KEY = 'registrations-data'; // no longer used for storage, kept for reference
+
+  const form = document.getElementById('regForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMsg = document.getElementById('formMsg');
+  const confirmBox = document.getElementById('confirmBox');
+
+  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxQEP4i-lP-F6vRhIGzEsMrprhJZAzNn1J5elMiFBFbsETc822nBfY0VR59sHZAngaj/exec';
+
+  submitBtn.addEventListener('click', async () => {
+    const nameEl = document.getElementById('name');
+    const mobileEl = document.getElementById('mobile');
+    const emailEl = document.getElementById('email');
+    const qualEl = document.getElementById('qualification');
+    const domainEl = document.getElementById('domain');
+
+    if (!nameEl.value.trim() || !mobileEl.value.trim() || !emailEl.value.trim() || !qualEl.value.trim() || !domainEl.value) {
+      formMsg.textContent = 'Please fill in every field before submitting.';
+      formMsg.className = 'form-msg err';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    formMsg.textContent = 'Saving...';
+    formMsg.className = 'form-msg';
+
+    const entry = {
+      name: nameEl.value.trim(),
+      mobile: mobileEl.value.trim(),
+      email: emailEl.value.trim(),
+      qualification: qualEl.value.trim(),
+      domain: domainEl.value
+    };
+
+    try {
+      await fetch(SHEET_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(entry)
+      });
+      // 'no-cors' mode means we can't read the response, so we optimistically
+      // treat a fetch that didn't throw as a successful submission.
+      form.style.display = 'none';
+      confirmBox.classList.add('show');
+    } catch (err) {
+      formMsg.textContent = 'Error: could not reach the registration sheet. Check your connection and try again.';
+      formMsg.className = 'form-msg err';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
